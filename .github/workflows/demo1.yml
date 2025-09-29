@@ -13,7 +13,7 @@ on:
       - '.github/workflows/*' # means will triggered only if the above events are triggered and one of the file in workflows file is updated
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Output event data
@@ -26,5 +26,19 @@ jobs:
         run: npm run test
       - name: Build code
         run: npm run build
-      - name: Deploy project
-        run: echo "Deploying..."
+      - name: Upload artifacts
+        uses: action/upload-artifact@v3
+        with:
+          name: dist-files
+          path: dist
+          #path: |
+          #  dist
+          #  package.json
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        run: echo "Deploying ...."
+      
