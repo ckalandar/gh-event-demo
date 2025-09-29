@@ -1,6 +1,6 @@
 name: Events Demo 1
 on: 
-  pull_reqeust:
+  pull_request:
     types:
       - opened
   workflow_dispatch:
@@ -9,6 +9,8 @@ on:
       - master
       - 'dev-*'
       - 'feat/**'
+    paths:
+      - '.github/workflows/*' # means will triggered only if the above events are triggered and one of the file in workflows file is updated
 
 jobs:
   deploy:
